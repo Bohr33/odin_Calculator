@@ -5,47 +5,30 @@
     border: solid black 5px;
     padding: 20px;
     margin: 0px 300px;
-    height: 600px;
+    height: 500px;
     width: 600px;
 
 }
 /* red outline, contains the two other containers that seperate digits and functions */
 .Buttons{
-    display: flex;
+    display: grid;
+    grid-template-areas: "clear clear clear divide"
+                        "one two three multiply"
+                        "four five six add"
+                        "seven eight nine subtract"
+                        "zero zero dot equals";
     border: solid red 5px;
-    justify-content: space-between;
 }
-/* refers to the grid of digits and . and equals */
-#digitsDiv{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 400px;
-    gap: 10px;
-    border: solid black 3px;
-    
-}
-/* refers to the right side butons that perform the operations */
-#functions{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border: solid blue 3px;
-}
+
 /* refers to all function buttons*/
 .functions{
-    background-color: aqua;
+    background-color: rgb(226, 196, 25);
     padding: 30px 15px;
-    margin: 10px;
 }
 /* refers to all digit buttons */
 .digits{
-    background-color: rgb(156, 100, 209);
-    padding: 20px;
+    background-color: rgb(216, 107, 77);
     font-size: 40px;
-    
-    width: 100px;
-    height: 100px
 }
 /* refers to the display that shows output value */
 #display{
@@ -55,8 +38,33 @@
     color: white;
     text-align: right;
     margin: auto;
+    
 }
 
-h1{
-    color: rebeccapurple;
+.activeOperator{
+    background-color: rgb(163, 161, 26);
+}
+
+
+.zero{
+    grid-area: zero;
+}
+.divide{
+    grid-area: divide;
+}
+.multiply{
+    grid-area: multiply;
+}
+.add{
+    grid-area: add;
+}
+.subtract{
+    grid-area: subtract;
+}
+.equals{
+    grid-area: equals;
+}
+
+.clear{
+    grid-area: clear;
 }

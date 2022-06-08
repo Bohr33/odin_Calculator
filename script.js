@@ -2,29 +2,27 @@
 function addClickEventListener(list){
     for (var i = 0; i <= list.length - 1; i++){
         if(i == 9){
-            list[i].addEventListener('click', function(){digitsFun(0)});    
+            list[i].addEventListener('click', function(){newDigit(),digitsFun(0)});    
         }else if(i == 10){
-            list[i].addEventListener('click', function(){digitsFunDot('.')});
+            list[i].addEventListener('click', function(){newDigit(),digitsFunDot('.')});
         }else{
-            list[i].addEventListener('click', function(){digitsFun(this.textContent)});
+            list[i].addEventListener('click', function(){newDigit(), digitsFun(this.textContent)});
         };
     }
 };
 
 function addClickEventFunctions(list){
-    list[0].addEventListener('click', function(){nextValue(storeDigitFront, "add")});
-    list[1].addEventListener('click', function(){nextValue(storeDigitFront, "subtract")});
-    list[2].addEventListener('click', function(){nextValue(storeDigitFront, "multiply")});
-    list[3].addEventListener('click', function(){nextValue(storeDigitFront, "divide")});
-    list[4].addEventListener('click', function(){clear()});
-    list[5].addEventListener('click', function(){operate(storeOperator, parseInt(storeDigitBack), parseInt(storeDigitFront))});
-    
-    
+    list[0].addEventListener('click', function(){clear()});
+    list[1].addEventListener('click', function(){operatorToggle(1)});
+    list[2].addEventListener('click', function(){operatorToggle(2)});
+    list[3].addEventListener('click', function(){operatorToggle(3)});
+    list[4].addEventListener('click', function(){operatorToggle(4)});
+    list[5].addEventListener('click', function(){operate(parseFloat(storeDigitBack), parseFloat(storeDigitFront))});
 }
 
 function add(a,b){
     console.log(a + b);
-;    return a + b;
+    return a + b;
 };
 
 function subtract(a,b){
@@ -39,26 +37,26 @@ function divide(a,b){
     return a/b;
 };
 
-function operate(operator, a, b){
+let storeOperator;
 
-
+function operate(a, b){
     let output;
-    switch(operator){
-        case 'add':
+    switch(activeOperator){
+        case 1:
             output =  add(a,b);
             break;
-        case 'subtract':
+        case 2:
             output =  subtract(a,b);
             break;
-        case 'multiply':
+        case 3:
             output =  multiply(a,b);
             break;
-        case 'divide':
+        case 4:
             output =  divide(a,b);
     };
-    storeOperator = operator;
-    storeDigitBack = output;
-    storeDigitFront = "";
+    storeDigitFront = output;
+    activeOperator = -1;
+    chainWatch = false;
     updateDisplay(output);
 };
 
@@ -98,22 +96,67 @@ function digitsFunDot(dot){
 }
 
 let storeDigitBack = 0;
-let storeOperator;
-
-//stores the chosen number in a value, resets the storeDigitFront value, and sets the operator function to be sent for operation
-function nextValue(digit, operator){
-    storeDigitBack = digit;
-    storeDigitFront = "";
-    storeOperator = operator;
-    console.log(storeDigitBack);
-}
 
 function clear(){
     storeDigitFront = "";
     storeDigitBack = 0;
     updateDisplay(0);
+    operatorWatch = false;
+    chainWatch = false;
+    dotwatch = false;
+    activeOperator = -1;
 }
 
+//watches if any operator is toggled so certain functions can be done on next digit input
+let operatorWatch = false;
+//watches which operator is currently toggled
+let activeOperator;
+//watches if a chain calculation able
+let chainWatch = false;
+
+//highlights the button which is click
+function operatorToggle(element){
+    if(chainWatch == true){
+        operate(parseFloat(storeDigitBack), parseFloat(storeDigitFront));
+        chainWatch = false;
+    }
+
+    if(activeOperator == element){
+        operatorWatch = false;
+    }else{
+    activeOperator = element;
+    operatorWatch = true;
+    untoggleAllBut();
+    }
+    functions[element].classList.toggle('activeOperator');
+    dotwatch = false;
+
+}
+
+//function to untoggle all highlighted operators
+function untoggleAllBut(){
+
+    for(let i = 0; i < 4; i++){
+        if(i != activeOperator){
+            functions[i + 1].classList.remove('activeOperator');
+        }
+    }    
+}
+
+function untoggleActive(){
+    functions[activeOperator].classList.remove('activeOperator');
+}
+
+//this function checks if an operator is on and then prepares the calculator for new digit input
+function newDigit(){
+    if(operatorWatch == true){
+        storeDigitBack = storeDigitFront;
+        storeDigitFront = "";
+        untoggleActive();
+        operatorWatch = false;
+        chainWatch = true;
+    }
+}
 
 
 
