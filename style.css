@@ -1,54 +1,82 @@
-
+body{
+    background: rgba(216, 150, 111, 0.879);
+}
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 /* refers to the entire calculator display */
 #Calculator{
-    background-color: rgb(190, 184, 184);
-    border: solid black 5px;
+    background-color: rgb(92, 24, 24);
+    border: solid black 15px;
     padding: 20px;
-    margin: 0px 300px;
-    height: 500px;
+    margin: 200px 300px;
+    height: 720px;
     width: 600px;
+    border-radius: 20px;
 
 }
 /* red outline, contains the two other containers that seperate digits and functions */
 .Buttons{
     display: grid;
-    grid-template-areas: "clear clear clear divide"
+    grid-template-areas: "clear del plusMinus divide"
                         "one two three multiply"
                         "four five six add"
                         "seven eight nine subtract"
                         "zero zero dot equals";
-    border: solid red 5px;
+    gap: 5px;
 }
 
 /* refers to all function buttons*/
 .functions{
     background-color: rgb(226, 196, 25);
-    padding: 30px 15px;
+    padding: 23px;
+    border-radius: 10px;
+    font-family: OCR A Std, monospace;
+    font-size: 50px;
+    border: solid black 5px;
 }
 /* refers to all digit buttons */
 .digits{
     background-color: rgb(216, 107, 77);
-    font-size: 40px;
+    font-size: 50px;
+    border-radius: 10px;
+    font-family: OCR A Std, monospace;
+    border: solid black 5px;
+}
+/* div surrounding the display used for centering */
+.displayDiv{
+    border: rgb(0, 0, 0) solid 10px;
+    height: 100px;
+    background-color: rgb(187, 110, 110) ;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    
 }
 /* refers to the display that shows output value */
 #display{
-    border: black solid 3px;
-    height: 60px;
-    background-color: rgb(67, 67, 75) ;
-    color: white;
+    color: rgb(0, 0, 0);
     text-align: right;
-    margin: auto;
+    font-family: OCR A Std, monospace;
+    font-size: 70px;
+    text-shadow: 2px 2px;
     
 }
 
 .activeOperator{
-    background-color: rgb(163, 161, 26);
+    background-color: rgb(226, 196, 25, .5);
 }
 
 
 .zero{
     grid-area: zero;
+
 }
+
 .divide{
     grid-area: divide;
 }
@@ -64,7 +92,38 @@
 .equals{
     grid-area: equals;
 }
+.equals:active{
+    background-color: rgb(226, 196, 25, .5);
+}
 
 .clear{
     grid-area: clear;
+    background-color: rgb(204, 103, 20);
+    font-size: 40px;
+    padding: 0px;
 }
+.clear:active{
+    background-color: rgb(204, 103, 20, .5);
+}
+
+.plusMinus{
+    grid-area: plusMinus;
+    padding: 0px 0px;
+    font-size: 40px;
+}
+.plusMinus:active{
+    background-color: rgb(226, 196, 25, .5);
+}
+.functions:active{
+    background-color: rgb(226, 196, 25, .5);
+}
+.digits:active{
+    background-color: rgb(187, 110, 110, .5);
+}
+.deleteLast{
+    grid-area: del;
+    font-size: 40px;
+    padding: 0px;
+
+}
+
